@@ -1,8 +1,24 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {},
-    "variables": {},
+    "parameters": {
+        "location": {
+            "type": "string",
+            "metadata": {
+                "name": "Deployment Location",
+                "description": "Azure Location for storing deployment metadata"
+            }
+        }
+    },
+    "variables": {
+        "templateBaseUrl": "",
+        "linkedArtifacts": {
+            // Policy Definitions
+            
+            // General
+            "restrictAllowedLocations": ""
+        }
+    },
     "resources": [],
     "outputs": {}
 }
