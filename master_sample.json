@@ -11,14 +11,34 @@
         }
     },
     "variables": {
-        "templateBaseUrl": "",
+        "templateBaseUrl": "https://raw.githubusercontent.com/Sebastian-Negoescu/AzureSubscriptionLevel/master/linked_artifacts/",
         "linkedArtifacts": {
             // Policy Definitions
             
             // General
-            "restrictAllowedLocations": ""
+            "restrictAllowedLocationsPolicy": "Policy/Definitions/artifact-policy-only-europe-location--allow.json"
         }
     },
-    "resources": [],
-    "outputs": {}
+    "resources": [
+        // Policy Definitions
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "name": "restrictAllowedLocationsPolicyDeployment",
+            "location": "[parameters('location')]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('templateBaseUrl'), variables('linkedArtifacts').restrictAllowedLocationsPolicy)]",
+                    "contentVersion": "1.0.0.0"
+                }
+            }
+        }
+    ],
+    "outputs": {
+        "restrictAllowedLocationsPolicyId": {
+            "type": "string",
+            "value": "[reference('restrictAllowedLocationsPolicyDeployment').outputs.restrictAllowedLocationEuropeOnlyId.id]"
+        }
+    }
 }

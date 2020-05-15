@@ -54,5 +54,10 @@
             }
         }
     ],
-    "outputs": {}
+    "outputs": {
+        "restrictAllowedLocationEuropeOnlyId": {
+            "type": "string",
+            "value": "[resourceId('Microsoft.Authorization/policyDefinitions', variables('policyName'))]"
+        }
+    }
 }
