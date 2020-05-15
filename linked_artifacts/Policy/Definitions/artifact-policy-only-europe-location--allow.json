@@ -25,11 +25,7 @@
                             "displayName": "Allowed Locations",
                             "description": "List of allowed locations for resource deployment",
                             "strongType": "location"
-                        },
-                        "allowedValues": [
-                            "westeurope",
-                            "northeurope"
-                        ]
+                        }
                     }
                 },
                 "policyType": "Custom",
@@ -39,7 +35,7 @@
                         "allOf": [
                             {
                                 "field": "location",
-                                "notIn": "[[parameters('location')]"
+                                "notIn": "[[parameters('allowedLocations')]"
                             },
                             {
                                 "field": "location",
