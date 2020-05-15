@@ -38,7 +38,7 @@
     "outputs": {
         "restrictAllowedLocationsPolicyId": {
             "type": "string",
-            "value": "[reference('restrictAllowedLocationsPolicyDeployment').outputs.restrictAllowedLocationEuropeOnlyId.id]"
+            "value": "[reference('restrictAllowedLocationsPolicyDeployment').outputs.restrictAllowedLocationEuropeOnlyId.value]"
         }
     }
 }
