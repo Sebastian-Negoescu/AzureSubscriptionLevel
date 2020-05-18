@@ -20,7 +20,10 @@
             "restrictResourceGroupLocationsPolicy": "Policy/Definitions/artifact-policy-resource-group-location--allow.json",
 
             // Storage
-            "restrictStorageAccountSkusPolicy": "Policy/Definitions/artifact-policy-storageaccount-sku--allowed.json"
+            "restrictStorageAccountSkusPolicy": "Policy/Definitions/artifact-policy-storageaccount-sku--allowed.json",
+
+            // Compute
+            "restrictVirtualMachineSkusPolicy": "Policy/Definitions/artifact-policy-virtualmachines-sku--allowed.json"
         }
     },
     "resources": [
@@ -63,6 +66,18 @@
                     "contentVersion": "1.0.0.0"
                 }
             }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "name": "restrictVirtualMachineSkusPolicyDeployment",
+            "location": "[parameters('location')]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('templateBaseUrl'), variables('linkedArtifacts').restrictVirtualMachineSkusPolicy)]"
+                }
+            }
         }
     ],
     "outputs": {
@@ -77,6 +92,10 @@
         "restrictStorageAccountSkusPolicyId": {
             "type": "string",
             "value": "[reference('restrictStorageAccountSkusPolicyDeployment').outputs.restrictStorageAccountSkus.value]"
+        },
+        "restrictVirtualMachineSkusPolicyId": {
+            "type": "string",
+            "value": "[reference('restrictVirtualMachineSkusPolicyDeployment').outputs.restrictVirtualMachineSkusId.value]"
         }
     }
 }
