@@ -3,9 +3,9 @@
     "contentVersion": "1.0.0.0",
     "parameters": {},
     "variables": {
-        "policyName": "deny-resource-group-without-costcenter-tag",
-        "policyDisplayName": "_*Restrict Resource Group deployment - Cost Center tag MANDATORY",
-        "policyDescription": "This policy restricts the Resource Group deployment to have a mandatory tag of Cost Center"
+        "policyName": "modify-resource-group-env-tag",
+        "policyDisplayName": "_*Modify Resource Group's environment tag to match naming",
+        "policyDescription": "This policy modifies the Resource Group's environment tag based on it's naming convention"
     },
     "resources": [
         {
@@ -18,8 +18,8 @@
                 "metadata": {
                     "category": "Tags"
                 },
-                "policyType": "Custom",
                 "mode": "All",
+                "policyType": "Custom",
                 "parameters": {
                     "tagName": {
                         "type": "string",
@@ -27,7 +27,7 @@
                             "displayName": "Tag Name",
                             "description": "The name of your tag"
                         },
-                        "defaultValue": "CostCenter"
+                        "defaultValue": "Env"
                     }
                 },
                 "policyRule": {
@@ -38,20 +38,32 @@
                                 "equals": "Microsoft.Resources/subscriptions/resourceGroups"
                             },
                             {
-                                "field": "[[concat('tags[', parameters('tagName'), ']')]",
-                                "exists": false
+                                "field": "name",
+                                "like": "prod-*"
                             }
                         ]
                     },
                     "then": {
-                        "effect": "Deny"
+                        "effect": "modify",
+                        "details": {
+                            "roleDefinitionIds": [
+                                "/providers/microsoft.authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+                            ],
+                            "operations": [
+                                {
+                                    "operation": "addOrReplace",
+                                    "field": "[[concat('tags[', parameters('tagName'), ']')]",
+                                    "value": "Production"
+                                }
+                            ]
+                        }
                     }
                 }
             }
         }
     ],
     "outputs": {
-        "costCenterTagResourceGroupId": {
+        "modifyRgEnvTagId": {
             "type": "string",
             "value": "[resourceId('Microsoft.Authorization/policyDefinitions', variables('policyName'))]"
         }

@@ -25,7 +25,7 @@
                         "type": "string",
                         "metadata": {
                             "displayName": "Tag Name",
-                            "description": "Cost Center value"
+                            "description": "The name of your tag"
                         },
                         "defaultValue": "CostCenter"
                     }
