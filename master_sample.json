@@ -23,7 +23,10 @@
             "restrictStorageAccountSkusPolicy": "Policy/Definitions/artifact-policy-storageaccount-sku--allowed.json",
 
             // Compute
-            "restrictVirtualMachineSkusPolicy": "Policy/Definitions/artifact-policy-virtualmachines-sku--allowed.json"
+            "restrictVirtualMachineSkusPolicy": "Policy/Definitions/artifact-policy-virtualmachines-sku--allowed.json",
+
+            // Tags
+            "costCenterTagRg": "Policy/Definitions/artifact-policy-tag-cost-center-rg--deny.json"
         }
     },
     "resources": [
@@ -79,6 +82,18 @@
                     "contentVersion": "1.0.0.0"
                 }
             }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "name": "costCenterTagRgPolicyDeployment",
+            "location": "[parameters('location')]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('templateBaseUrl'), variables('linkedArtifacts').costCenterTagRg)]"
+                }
+            }
         }
     ],
     "outputs": {
@@ -97,6 +112,10 @@
         "restrictVirtualMachineSkusPolicyId": {
             "type": "string",
             "value": "[reference('restrictVirtualMachineSkusPolicyDeployment').outputs.restrictVirtualMachineSkusId.value]"
+        },
+        "costCenterTagRgPolicyId": {
+            "type": "string",
+            "value": "[reference('costCenterTagRgPolicyDeployment').outputs.costCenterTagResourceGroupId.value]"
         }
     }
 }
