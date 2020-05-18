@@ -169,7 +169,7 @@
         },
         "envTagResourcePolicyId": {
             "type": "string",
-            "value": "[reference('envTagResourcePolicyDeployment').outputs.`modifyResourceEnvTagId.value]"
+            "value": "[reference('envTagResourcePolicyDeployment').outputs.modifyResourceEnvTagId.value]"
         }
     }
 }
