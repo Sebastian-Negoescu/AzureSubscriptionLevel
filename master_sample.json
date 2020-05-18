@@ -26,9 +26,10 @@
             "restrictVirtualMachineSkusPolicy": "Policy/Definitions/artifact-policy-virtualmachines-sku--allowed.json",
 
             // Tags
-            "costCenterTagRg": "Policy/Definitions/artifact-policy-tag-cost-center-rg--deny.json",
-            "costCenterTagResource": "Policy/Definitions/artifact-policy-tag-cost-center-resource--modify.json",
-            "envTagRg": "Policy/Definitions/artifact-policy-tag-env-rg--modify.json"
+            "costCenterTagRgPolicy": "Policy/Definitions/artifact-policy-tag-cost-center-rg--deny.json",
+            "costCenterTagResourcePolicy": "Policy/Definitions/artifact-policy-tag-cost-center-resource--modify.json",
+            "envTagRgPolicy": "Policy/Definitions/artifact-policy-tag-env-rg--modify.json",
+            "envTagResourcePolicy": "Policy/Definitions/artifact-policy-tag-env-resource--modify.json"
         }
     },
     "resources": [
@@ -93,7 +94,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('templateBaseUrl'), variables('linkedArtifacts').costCenterTagRg)]"
+                    "uri": "[concat(variables('templateBaseUrl'), variables('linkedArtifacts').costCenterTagRgPolicy)]"
                 }
             }
         },
@@ -105,7 +106,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('templateBaseUrl'), variables('linkedArtifacts').costCenterTagResource)]",
+                    "uri": "[concat(variables('templateBaseUrl'), variables('linkedArtifacts').costCenterTagResourcePolicy)]",
                     "contentVersion": "1.0.0.0"
                 }
             }
@@ -118,7 +119,20 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('templateBaseUrl'), variables('linkedArtifacts').envTagRg)]",
+                    "uri": "[concat(variables('templateBaseUrl'), variables('linkedArtifacts').envTagRgPolicy)]",
+                    "contentVersion": "1.0.0.0"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "name": "envTagResourcePolicyDeployment",
+            "location": "[parameters('location')]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('templateBaseUrl'), variables('linkedArtifacts').envTagResourcePolicy)]",
                     "contentVersion": "1.0.0.0"
                 }
             }
@@ -152,6 +166,10 @@
         "envTagRgPolicyId": {
             "type": "string",
             "value": "[reference('envTagRgPolicyDeployment').outputs.modifyRgEnvTagId.value]"
+        },
+        "envTagResourcePolicyId": {
+            "type": "string",
+            "value": "[reference('envTagResourcePolicyDeployment').outputs.`modifyResourceEnvTagId.value]"
         }
     }
 }
