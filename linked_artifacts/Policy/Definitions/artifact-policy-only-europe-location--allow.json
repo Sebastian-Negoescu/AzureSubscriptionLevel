@@ -4,7 +4,7 @@
     "parameters": {},
     "variables": {
         "policyName": "restrict-allowed-location-europe-only",
-        "policyDisplayName": "_*Restrict allowed locations for Europe only when deploying resources",
+        "policyDisplayName": "_*Restrict allowed locations for resources",
         "policyDescription": "This policy restricts the locations someone can use when deploying resources. Excludes RGs, AzureB2CDirectory and Global resources."
     },
     "resources": [
