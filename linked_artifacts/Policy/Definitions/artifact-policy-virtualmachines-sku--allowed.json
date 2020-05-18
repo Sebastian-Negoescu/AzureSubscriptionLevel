@@ -22,8 +22,8 @@
                     "listOfForbiddenSkus": {
                         "type": "string",
                         "metadata": {
-                            "displayName": "List of allowed VM SKUs",
-                            "description": "List of allowed SKUs for creating/updating a VM",
+                            "displayName": "List of forbidden VM SKUs",
+                            "description": "List of forbidden SKUs for creating/updating a VM",
                             "strongType": "vmSKUs"
                         },
                         "defaultValue": "Standard_G*"
@@ -44,7 +44,7 @@
                         ]
                     },
                     "then": {
-                        "effect": "Deny"
+                        "effect": "deny"
                     }
                 }
             }
