@@ -17,7 +17,10 @@
             
             // General
             "restrictAllowedLocationsPolicy": "Policy/Definitions/artifact-policy-only-europe-location--allow.json",
-            "restrictResourceGroupLocationsPolicy": "Policy/Definitions/artifact-policy-resource-group-location--allow.json"
+            "restrictResourceGroupLocationsPolicy": "Policy/Definitions/artifact-policy-resource-group-location--allow.json",
+
+            // Storage
+            "restrictStorageAccountSkusPolicy": "Policy/Definitions/artifact-policy-storageaccount-sku--allowed.json"
         }
     },
     "resources": [
@@ -47,6 +50,18 @@
                     "contentVersion": "1.0.0.0"
                 }
             }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "name": "restrictStorageAccountSkusPolicyDeployment",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('templateBaseUrl'), variables('linkedArtifacts').restrictStorageAccountSkusPolicy)]",
+                    "contentVersion": "1.0.0.0"
+                }
+            }
         }
     ],
     "outputs": {
@@ -57,6 +72,10 @@
         "restrictResourceGroupLocationsPolicyId": {
             "type": "string",
             "value": "[reference('restrictResourceGroupLocationsPolicyDeployment').outputs.restrictResourceGroupLocationId.value]"
+        },
+        "restrictStorageAccountSkusPolicyId": {
+            "type": "string",
+            "value": "[reference('restrictStorageAccountSkusPolicyDeployment').outputs.restrictStorageAccountSkus.value]"
         }
     }
 }
