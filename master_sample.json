@@ -16,7 +16,8 @@
             // Policy Definitions
             
             // General
-            "restrictAllowedLocationsPolicy": "Policy/Definitions/artifact-policy-only-europe-location--allow.json"
+            "restrictAllowedLocationsPolicy": "Policy/Definitions/artifact-policy-only-europe-location--allow.json",
+            "restrictResourceGroupLocationsPolicy": "Policy/Definitions/artifact-policy-resource-group-location--allow.json"
         }
     },
     "resources": [
@@ -33,12 +34,29 @@
                     "contentVersion": "1.0.0.0"
                 }
             }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "name": "restrictResourceGroupLocationsPolicyDeployment",
+            "location": "[parameters('location')]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('templateBaseUrl'), variables('linkedArtifacts').restrictResourceGroupLocationsPolicy)]",
+                    "contentVersion": "1.0.0.0"
+                }
+            }
         }
     ],
     "outputs": {
         "restrictAllowedLocationsPolicyId": {
             "type": "string",
             "value": "[reference('restrictAllowedLocationsPolicyDeployment').outputs.restrictAllowedLocationEuropeOnlyId.value]"
+        },
+        "restrictResourceGroupLocationsPolicyId": {
+            "type": "string",
+            "value": "[reference('restrictResourceGroupLocationsPolicyDeployment').outputs.restrictResourceGroupLocationId.value]"
         }
     }
 }

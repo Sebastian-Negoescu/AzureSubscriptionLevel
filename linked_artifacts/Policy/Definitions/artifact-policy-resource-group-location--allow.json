@@ -1,0 +1,59 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "variables": {
+        "policyName": "restrict-resource-group-location",
+        "policyDisplayName": "_*Restrict allowed location for Resource Groups to Europ",
+        "policyDescription": "This policy restrict the location to which Resource Groups can be deployed to."
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Authorization/policyDefinitions",
+            "apiVersion": "2019-09-01",
+            "name": "[variables('policyName')]",
+            "properties": {
+                "displayName": "[variables('policyDisplayName')]",
+                "description": "[variables('policyDescription')]",
+                "metadata": {
+                    "category": "General"
+                },
+                "mode": "All",
+                "parameters": {
+                    "listOfAllowedLocations": {
+                        "type": "array",
+                        "metadata": {
+                            "displayName": "List of Allowed Locations",
+                            "description": "List of Allowed Locations for Resource Group deployments",
+                            "strongType": "location"
+                        }
+                    }
+                },
+                "policyType": "Custom",
+                "policyRule": {
+                    "if": {
+                        "allOf": [
+                            {
+                                "field": "type",
+                                "equals": "Microsoft.Resources/subscriptions/resourceGroups"
+                            },
+                            {
+                                "field": "location",
+                                "notIn": "[[parameters('listOfAllowedLocations')]"
+                            }
+                        ]
+                    },
+                    "then": {
+                        "effect": "Deny"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {
+        "restrictResourceGroupLocationId": {
+            "type": "string",
+            "value": "[resourceId('Microsoft.Authorization/policyDefinitions', variables('policyName'))]"
+        }
+    }
+}
