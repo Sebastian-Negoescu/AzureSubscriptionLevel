@@ -26,7 +26,7 @@
                             "description": "List of allowed SKUs for creating/updating a VM",
                             "strongType": "vmSKUs"
                         },
-                        "defaultValue": ["Standard_G*"]
+                        "allowedValues": ["Standard_G*"]
                     }
                 },
                 "policyType": "Custom",
