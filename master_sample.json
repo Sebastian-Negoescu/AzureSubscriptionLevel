@@ -27,7 +27,7 @@
 
             // Tags
             "costCenterTagRg": "Policy/Definitions/artifact-policy-tag-cost-center-rg--deny.json",
-            "costCenterTagResource": "Policy/Definitions/artifact-policy-tag-cost-center-resource--deny.json"
+            "costCenterTagResource": "Policy/Definitions/artifact-policy-tag-cost-center-resource--modify.json"
         }
     },
     "resources": [
