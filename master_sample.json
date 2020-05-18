@@ -26,7 +26,8 @@
             "restrictVirtualMachineSkusPolicy": "Policy/Definitions/artifact-policy-virtualmachines-sku--allowed.json",
 
             // Tags
-            "costCenterTagRg": "Policy/Definitions/artifact-policy-tag-cost-center-rg--deny.json"
+            "costCenterTagRg": "Policy/Definitions/artifact-policy-tag-cost-center-rg--deny.json",
+            "costCenterTagResource": "Policy/Definitions/artifact-policy-tag-cost-center-resource--deny.json"
         }
     },
     "resources": [
@@ -94,6 +95,19 @@
                     "uri": "[concat(variables('templateBaseUrl'), variables('linkedArtifacts').costCenterTagRg)]"
                 }
             }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "name": "costCenterTagResourcePolicyDeployment",
+            "location": "[parameters('location')]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('templateBaseUrl'), variables('linkedArtifacts').costCenterTagResource)]",
+                    "contentVersion": "1.0.0.0"
+                }
+            }
         }
     ],
     "outputs": {
@@ -116,6 +130,10 @@
         "costCenterTagRgPolicyId": {
             "type": "string",
             "value": "[reference('costCenterTagRgPolicyDeployment').outputs.costCenterTagResourceGroupId.value]"
+        },
+        "costCenterTagResourcePolicyId": {
+            "type": "string",
+            "value": "[reference('costCenterTagResourcePolicyDeployment').outputs.costCenterTagResourceId.value]"
         }
     }
 }
