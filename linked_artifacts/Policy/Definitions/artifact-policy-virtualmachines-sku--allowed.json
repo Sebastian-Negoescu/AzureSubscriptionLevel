@@ -20,13 +20,13 @@
                 },
                 "parameters": {
                     "listOfForbiddenSkus": {
-                        "type": "array",
+                        "type": "string",
                         "metadata": {
                             "displayName": "List of allowed VM SKUs",
                             "description": "List of allowed SKUs for creating/updating a VM",
                             "strongType": "vmSKUs"
                         },
-                        "allowedValues": ["Standard_G*"]
+                        "defaultValue": "Standard_G*"
                     }
                 },
                 "policyType": "Custom",
@@ -39,7 +39,7 @@
                             },
                             {
                                 "field": "Microsoft.Compute/virtualMachines/sku.name",
-                                "in": "[[parameters('listOfForbiddenSkus')]"
+                                "like": "[[parameters('listOfForbiddenSkus')]"
                             }
                         ]
                     },
