@@ -38,7 +38,7 @@
                                 "equals": "Microsoft.Resources/subscriptions/resourceGroups"
                             },
                             {
-                                "field": "tags[[parameters('tagName')]",
+                                "field": "[[concat('tags[', parameters('tagName'), ']')]",
                                 "exists": false
                             }
                         ]
