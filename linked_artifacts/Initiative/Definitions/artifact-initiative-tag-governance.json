@@ -1,0 +1,51 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "variables": {
+        "initiativeName": "tagging-governance-initiative",
+        "initiativeDisplayName": "_*Tagging Governance Initiative",
+        "initiativeDescription": "This initiative contains the taggin policy definitions for propper governance",
+        "basePath": "[concat('/subscriptions/', subscription().id, '/providers/Microsoft.Authorization/policyDefinitions/')]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Authorization/policySetDefinitions",
+            "apiVersion": "2019-09-01",
+            "name": "[variables('initiativeName')]",
+            "properties": {
+                "displayName": "[variables('initiativeDisplayName')]",
+                "description": "[variables('initiativeDescription')]",
+                "metadata": {
+                    "category": "Tags"
+                },
+                "parameters": {},
+                "policyType": "Custom",
+                "policyDefinitions": [
+                    {
+                        "policyDefinitionId": "[concat(variables('basePath'), 'deny-resource-group-without-costcenter-tag')]",
+                        "parameters": {}
+                    },
+                    {
+                        "policyDefinitionId": "[concat(variables('basePath'), 'modify-resources-without-costcenter-tag')]",
+                        "parameters": {}
+                    },
+                    {
+                        "policyDefinitionId": "[concat(variables('basePath'), 'modify-resource-group-env-tag')]",
+                        "parameters": {}
+                    },
+                    {
+                        "policyDefinitionId": "[concat(variables('basePath'), 'modify-resource-env-tag')]",
+                        "parameters": {}
+                    }
+                ]
+            }
+        }
+    ],
+    "outputs": {
+        "taggingGovernancePolicySetId": {
+            "type": "string",
+            "value": "[resourceId('Microsoft.Authorization/policySetDefinitions', variables('initiativeName'))]"
+        }
+    }
+}

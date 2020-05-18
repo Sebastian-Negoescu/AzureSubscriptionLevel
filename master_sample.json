@@ -29,7 +29,12 @@
             "costCenterTagRgPolicy": "Policy/Definitions/artifact-policy-tag-cost-center-rg--deny.json",
             "costCenterTagResourcePolicy": "Policy/Definitions/artifact-policy-tag-cost-center-resource--modify.json",
             "envTagRgPolicy": "Policy/Definitions/artifact-policy-tag-env-rg--modify.json",
-            "envTagResourcePolicy": "Policy/Definitions/artifact-policy-tag-env-resource--modify.json"
+            "envTagResourcePolicy": "Policy/Definitions/artifact-policy-tag-env-resource--modify.json",
+
+            // Initiative Definitions
+
+            // Tags
+            "taggingGovernanceInitiative": "Initiative/Definitions/artifact-initiative-tag-governance.json"
         }
     },
     "resources": [
@@ -136,6 +141,19 @@
                     "contentVersion": "1.0.0.0"
                 }
             }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "name": "taggingGovernanceInitiativeDeployment",
+            "location": "[parameters('location')]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('templateBaseUrl'), variables('linkedArtifacts').taggingGovernanceInitiative)]",
+                    "contentVersion": "1.0.0.0"
+                }
+            }
         }
     ],
     "outputs": {
@@ -170,6 +188,10 @@
         "envTagResourcePolicyId": {
             "type": "string",
             "value": "[reference('envTagResourcePolicyDeployment').outputs.modifyResourceEnvTagId.value]"
+        },
+        "taggingGovernanceInitiativeId": {
+            "type": "string",
+            "value": "[reference('taggingGovernanceInitiativeDeployment').outputs.taggingGovernancePolicySetId.value]"
         }
     }
 }
