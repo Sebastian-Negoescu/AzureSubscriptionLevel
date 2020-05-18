@@ -6,7 +6,7 @@
         "initiativeName": "tagging-governance-initiative",
         "initiativeDisplayName": "_*Tagging Governance Initiative",
         "initiativeDescription": "This initiative contains the taggin policy definitions for propper governance",
-        "basePath": "[concat('/subscriptions/', subscription().id, '/providers/Microsoft.Authorization/policyDefinitions/')]"
+        "basePath": "[concat(subscription().id, '/providers/Microsoft.Authorization/policyDefinitions/')]"
     },
     "resources": [
         {
