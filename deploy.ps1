@@ -7,7 +7,7 @@ $creds = New-Object System.Management.Automation.PSCredential("http://AzDevOps",
 $tenant = "sebinego.onmicrosoft.com"
 Connect-AzAccount -ServicePrincipal -Credential $creds -Tenant $tenant -Subscription "VSEnterprise_DEV"
 
-Test-AzDeployment -Location "westeurope" -TemplateUri "https://raw.githubusercontent.com/Sebastian-Negoescu/AzureSubscriptionLevel/master/master_sample.json" -TemplateParameterUri "https://raw.githubusercontent.com/Sebastian-Negoescu/AzureSubscriptionLevel/master/master_sample.parameters.json"
+Test-AzDeployment -Location "westeurope" -TemplateUri "https://raw.githubusercontent.com/Sebastian-Negoescu/AzureSubscriptionLevel/master/create_governance.json" -TemplateParameterUri "https://raw.githubusercontent.com/Sebastian-Negoescu/AzureSubscriptionLevel/master/create_governance.parameters.json"
 If ($?) {
-    New-AzDeployment -Location "westeurope" -TemplateUri "https://raw.githubusercontent.com/Sebastian-Negoescu/AzureSubscriptionLevel/master/master_sample.json" -TemplateParameterUri "https://raw.githubusercontent.com/Sebastian-Negoescu/AzureSubscriptionLevel/master/master_sample.parameters.json"
+    New-AzDeployment -Location "westeurope" -TemplateUri "https://raw.githubusercontent.com/Sebastian-Negoescu/AzureSubscriptionLevel/master/create_governance.json" -TemplateParameterUri "https://raw.githubusercontent.com/Sebastian-Negoescu/AzureSubscriptionLevel/master/create_governance.parameters.json"
 }
