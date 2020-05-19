@@ -1,0 +1,52 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "variables": {
+        "initiativeName": "compute-governance-initiative",
+        "initiativeDisplayName": "_*Compute Governance Initiative",
+        "initiativeDescription": "This initiative contains the compute policy definitions for propper Governance",
+        "basePath": "[concat(subscription().id, '/providers/Microsoft.Authorization/policyDefinitions/')]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Authorization/policySetDefinitions",
+            "apiVersion": "2019-09-01",
+            "name": "[variables('initiativeName')]",
+            "properties": {
+                "displayName": "[variables('initiativeDisplayName')]",
+                "description": "[variables('initiativeDescription')]",
+                "metadata": {
+                    "category": "Compute"
+                },
+                "parameters": {
+                    "listOfForbiddenSkus": {
+                        "type": "string",
+                        "metadata": {
+                            "displayName": "List of forbidden VM SKUs",
+                            "description": "List of forbidden SKUs when creating/updating a VM",
+                            "strongType": "vmSKUs"
+                        },
+                        "defaultValue": "Standard_G*"
+                    }
+                },
+                "policyDefinitions": [
+                    {
+                        "policyDefinitionId": "[concat(variables('basePath'), 'restrict-virtual-machine-skus')]",
+                        "parameters": {
+                            "listOfForbiddenSkus": {
+                                "value": "[[parameters('listOfForbiddenSkus')]"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "outputs": {
+        "computeGovernancePolicySetId": {
+            "type": "string",
+            "value": "[resourceId('Microsoft.Authorization/policySetDefinitions', variables('initiativeName'))]"
+        }
+    }
+}

@@ -37,7 +37,10 @@
             "taggingGovernanceInitiative": "Initiative/Definitions/artifact-initiative-tag-governance.json",
 
             // General
-            "generalGovernanceInitiative": "Initiative/Definitions/artifact-initiative-general-governance.json"
+            "generalGovernanceInitiative": "Initiative/Definitions/artifact-initiative-general-governance.json",
+
+            // Compute
+            "computeGovernanceInitiative": "Initiative/Definitions/artifact-initiative-compute-governance.json"
         }
     },
     "resources": [
@@ -180,6 +183,19 @@
                 "[resourceId('Microsoft.Resources/deployments', 'restrictAllowedLocationsPolicyDeployment')]",
                 "[resourceId('Microsoft.Resources/deployments', 'restrictResourceGroupLocationsPolicyDeployment')]"
             ]
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "name": "computeGovernanceInitiativeDeployment",
+            "location": "[parameters('location')]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('templateBaseUrl'), variables('linkedArtifacts').computeGovernanceInitiative)]",
+                    "contentVersion": "1.0.0.0"
+                }
+            }
         }
     ],
     "outputs": {
@@ -222,6 +238,10 @@
         "generalGovernanceInitiativeId": {
             "type": "string",
             "value": "[reference('generalGovernanceInitiativeDeployment').outputs.generalGovernancePolicySetId.value]"
+        },
+        "computeGovernanceInitiativeId": {
+            "type": "string",
+            "value": "[reference('computeGovernanceInitiativeDeployment').outputs.computeGovernancePolicySetId.value]"
         }
     }
 }
