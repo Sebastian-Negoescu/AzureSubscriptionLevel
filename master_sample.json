@@ -178,8 +178,8 @@
             },
             "dependsOn": [
                 "[resourceId('Microsoft.Resources/deployments', 'restrictAllowedLocationsPolicyDeployment')]",
-                "[resourceId('Microsoft.Resources/deployments', 'restrictResourceGroupLocationsPolicyDeployment')]",
                 "[concat(subscription().id, '/providers/Microsoft.Authorization/policyDefinitions/restrict-allowed-locations-europe-only')]",
+                "[resourceId('Microsoft.Resources/deployments', 'restrictResourceGroupLocationsPolicyDeployment')]",
                 "[concat(subscription().id, '/providers/Microsoft.Authorization/policyDefinitions/restrict-resource-group-locations')]"                
             ]
         }
