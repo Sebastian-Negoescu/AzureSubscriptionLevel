@@ -1,0 +1,41 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": "West Europe"
+        }
+    },
+    "variables": {
+        "governanceCreationDependency": "[subscriptionResourceId('Microsoft.Resources/deployments', 'generalGovernanceInitiativeDeployment')]",
+        "templateBaseUrl": "https://raw.githubusercontent.com/Sebastian-Negoescu/AzureSubscriptionLevel/master/linked_artifacts/",
+        "linkedArtifacts": {
+            // General Assignment
+            "generalGovernanceInitiativeAssignment": "Initiative/Assignments/artifact-assignment-general-governance.json"
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "name": "generalGovernanceInitiativeAssignmentDeployment",
+            "location": "[parameters('location')]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('templateBaseUrl'), variables('linkedArtifacts').generalGovernanceInitiativeAssignment)]"
+                }
+            },
+            "dependsOn": [
+                "[variables('governanceCreationDependency')]"
+            ]
+        }
+    ],
+    "outputs": {
+        "generalGovernanceInitiativeAssignmentId": {
+            "type": "string",
+            "value": "[reference('generalGovernanceInitiativeAssignmentDeployment').outputs.generalGovernanceInitiativeAssignmentTemplateId.value]"
+        }
+    }
+}
