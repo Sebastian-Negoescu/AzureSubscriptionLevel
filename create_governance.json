@@ -157,6 +157,7 @@
                 }
             }
         },
+        // Initiative Definitions
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
@@ -225,6 +226,7 @@
                 "[resourceId('Microsoft.Resources/deployments', 'restrictStorageAccountSkusPolicyDeployment')]"
             ]
         },
+        // Initiative Assignments
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
