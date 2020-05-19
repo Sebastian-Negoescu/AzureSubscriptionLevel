@@ -24,7 +24,7 @@
                     "resourcesAllowedLocations": {
                         "type": "Array",
                         "metadata": {
-                            "displayName": "Allowed Locations",
+                            "displayName": "Allowed Locations [Resources]",
                             "description": "List of allowed locations for resource deployment",
                             "strongType": "location"
                         },
@@ -46,7 +46,7 @@
                     "rgAllowedLocations": {
                         "type": "Array",
                         "metadata": {
-                            "displayName": "List of allowed locations",
+                            "displayName": "Allowed Locations [Resource Groups]",
                             "description": "List of allowed locations when deploying resource groups",
                             "strongType": "location"
                         },
