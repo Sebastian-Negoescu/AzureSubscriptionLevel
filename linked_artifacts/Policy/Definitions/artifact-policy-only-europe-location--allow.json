@@ -19,10 +19,10 @@
                     "category": "General"
                 },
                 "parameters": {
-                    "allowedLocations": {
+                    "resourcesAllowedLocations": {
                         "type": "Array",
                         "metadata": {
-                            "displayName": "Allowed Locations",
+                            "displayName": "Allowed Locations [Resources]",
                             "description": "List of allowed locations for resource deployment",
                             "strongType": "location"
                         }
@@ -35,7 +35,7 @@
                         "allOf": [
                             {
                                 "field": "location",
-                                "notIn": "[[parameters('allowedLocations')]"
+                                "notIn": "[[parameters('resourcesAllowedLocations')]"
                             },
                             {
                                 "field": "location",

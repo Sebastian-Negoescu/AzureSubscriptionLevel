@@ -21,7 +21,7 @@
                 },
                 "policyType": "Custom",
                 "parameters": {
-                    "allowedLocations": {
+                    "resourcesAllowedLocations": {
                         "type": "Array",
                         "metadata": {
                             "displayName": "Allowed Locations",
@@ -43,7 +43,7 @@
                             "norwayeast"
                         ]
                     },
-                    "listOfAllowedLocations": {
+                    "rgAllowedLocations": {
                         "type": "Array",
                         "metadata": {
                             "displayName": "List of allowed locations",
@@ -70,16 +70,16 @@
                     {
                         "policyDefinitionId": "[concat(variables('basePath'), 'restrict-allowed-locations-europe-only')]",
                         "parameters": {
-                            "allowedLocations": {
-                                "value": "[[parameters('allowedLocations')]"
+                            "resourcesAllowedLocations": {
+                                "value": "[[parameters('resourcesAllowedLocations')]"
                             }
                         }
                     },
                     {
                         "policyDefinitionId": "[concat(variables('basePath'), 'restrict-resource-group-locations')]",
                         "parameters": {
-                            "listOfAllowedLocations": {
-                                "value": "[[parameters('listOfAllowedLocations')]"
+                            "rgAllowedLocations": {
+                                "value": "[[parameters('rgAllowedLocations')]"
                             }
                         }
                     }

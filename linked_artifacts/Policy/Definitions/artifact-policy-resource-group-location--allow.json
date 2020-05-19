@@ -20,10 +20,10 @@
                 },
                 "mode": "All",
                 "parameters": {
-                    "listOfAllowedLocations": {
+                    "rgAllowedLocations": {
                         "type": "array",
                         "metadata": {
-                            "displayName": "List of Allowed Locations",
+                            "displayName": "Allowed locations [Resource Groups]",
                             "description": "List of Allowed Locations for Resource Group deployments",
                             "strongType": "location"
                         }
@@ -39,7 +39,7 @@
                             },
                             {
                                 "field": "location",
-                                "notIn": "[[parameters('listOfAllowedLocations')]"
+                                "notIn": "[[parameters('rgAllowedLocations')]"
                             }
                         ]
                     },
