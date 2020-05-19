@@ -21,13 +21,13 @@
                 },
                 "parameters": {
                     "listOfForbiddenSkus": {
-                        "type": "string",
+                        "type": "Array",
                         "metadata": {
                             "displayName": "List of forbidden VM SKUs",
                             "description": "List of forbidden SKUs when creating/updating a VM",
                             "strongType": "vmSKUs"
                         },
-                        "defaultValue": "Standard_G*"
+                        "allowedValues": ["[contains('Standard_G','*')]"]
                     }
                 },
                 "policyDefinitions": [
