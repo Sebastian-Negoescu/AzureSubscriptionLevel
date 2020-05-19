@@ -27,7 +27,11 @@
                             "displayName": "Allowed Locations",
                             "description": "List of allowed locations for resource deployment",
                             "strongType": "location"
-                        }
+                        },
+                        "allowedValues": [
+                            "westeurope",
+                            "northeurope"
+                        ]
                     },
                     "listOfAllowedLocations": {
                         "type": "Array",
@@ -35,7 +39,11 @@
                             "displayName": "List of allowed locations",
                             "description": "List of allowed locations when deploying resource groups",
                             "strongType": "location"
-                        }
+                        },
+                        "allowedValues": [
+                            "westeurope",
+                            "northeurope"
+                        ]
                     }
                 },
                 "policyDefinitions": [
