@@ -1,0 +1,44 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "variables": {
+        "initiativeName": "general-governance-initiative",
+        // "initiativeId": "[concat(subscription().id, '/providers/Microsoft.Authorization/policySetDefinitions/', variables('initiativeName'))]"
+        "initiativeId": "[resourceId('Microsoft.Authorization/policySetDefinitions', variables('initiativeName'))]",
+        "assignmentName": "[concat(variables('initiativeName'), '-assignment')]",
+        "assignmentDisplayName": "_*General Governance Initiative-Assignment",
+        "assignmentDescription": "[concat('Assigning ', variables('assignmentName'), 'on subscription.')]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Authorization/policyAssignments",
+            "apiVersion": "2019-09-01",
+            "name": "[variables('assignmentName')]",
+            "properties": {
+                "displayName": "[variables('assignmentDisplayName')]",
+                "description": "[variables('assignmentDescription')]",
+                "scope": "[subscription().id]",
+                "enforcementMode": "Default",
+                "metadata": {
+                    "category": "General"
+                },
+                "policyDefinitionId": "[variables('initiativeId')]",
+                "parameters": {
+                    "resourcesAllowedLocations": {
+                        "value": ["westeurope", "northeurope", "uksouth", "ukwest"]
+                    },
+                    "rgAllowedLocations": {
+                        "value": ["westeurope", "northeurope", "uksouth", "ukwest"]
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {
+        "generalGovernanceInitiativeAssignmentId": {
+            "type": "string",
+            "value": "[resourceId('Microsoft.Authorization/policyAssignments', variables('assignmentName'))]"
+        }
+    }
+}
