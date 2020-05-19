@@ -20,11 +20,24 @@
                     "category": "General"
                 },
                 "policyType": "Custom",
-                "parameters": {},
+                "parameters": {
+                    "allowedLocations": {
+                        "type": "Array",
+                        "metadata": {
+                            "displayName": "Allowed Locations",
+                            "description": "List of allowed locations for resource deployment",
+                            "strongType": "location"
+                        }
+                    }
+                },
                 "policyDefinitions": [
                     {
-                        "policyDefinitionId": "[concat(variables('basePath'), 'restrict-allowed-location-europe-only')]",
-                        "parameters": {}
+                        "policyDefinitionId": "[concat(variables('basePath'), 'restrict-allowed-locations-europe-only')]",
+                        "parameters": {
+                            "allowedLocations": {
+                                "value": "[[parameters('allowedLocations')]"
+                            }
+                        }
                     },
                     {
                         "policyDefinitionId": "[concat(variables('basePath'), 'restrict-resource-group-location')]",
