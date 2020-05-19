@@ -30,7 +30,17 @@
                         },
                         "allowedValues": [
                             "westeurope",
-                            "northeurope"
+                            "northeurope",
+                            "uksouth",
+                            "ukwest",
+                            "francecentral",
+                            "francesouth",
+                            "switzerlandnorth",
+                            "switzerlandwest",
+                            "germanynorth",
+                            "germanywestcentral",
+                            "norwaywest",
+                            "norwayeast"
                         ]
                     },
                     "listOfAllowedLocations": {
@@ -42,7 +52,17 @@
                         },
                         "allowedValues": [
                             "westeurope",
-                            "northeurope"
+                            "northeurope",
+                            "uksouth",
+                            "ukwest",
+                            "francecentral",
+                            "francesouth",
+                            "switzerlandnorth",
+                            "switzerlanddwest",
+                            "germanynorth",
+                            "germanywestcentral",
+                            "norwaywest",
+                            "norwayeast"
                         ]
                     }
                 },
