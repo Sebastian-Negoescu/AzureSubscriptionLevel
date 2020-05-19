@@ -1,0 +1,43 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "variables": {
+        "initiativeName": "general-governance-initiative",
+        "initiativeDisplayName": "_*General Governance Initiative",
+        "initiativeDescription": "This initiative contains the general policy definitions for propper Governance - allowed locations for RGs and Resources",
+        "basePath": "[concat(subscription().id, '/providers/Microsoft.Authorization/policyDefinitions/')]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Authorization/policySetDefinitions",
+            "apiVersion": "2019-09-01",
+            "name": "[variables('initiativeName')]",
+            "properties": {
+                "displayName": "[variables('initiativeDisplayName')]",
+                "description": "[variables('initiativeDescription')]",
+                "metadata": {
+                    "category": "General"
+                },
+                "policyType": "Custom",
+                "parameters": {},
+                "policyDefinitions": [
+                    {
+                        "policyDefinitionId": "[concat(variables('basePath'), 'restrict-allowed-location-europe-only')]",
+                        "parameters": {}
+                    },
+                    {
+                        "policyDefinitionId": "[concat(variables('basePath'), 'restrict-resource-group-location')]",
+                        "parameters": {}
+                    }
+                ]
+            }
+        }
+    ],
+    "outputs": {
+        "generalGovernancePolicySetId": {
+            "type": "string",
+            "value": "[resourceId('Microsoft.Authorization/policySetDefinitions', variables('initiativeName'))]"
+        }
+    }
+}

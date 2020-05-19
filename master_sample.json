@@ -34,7 +34,10 @@
             // Initiative Definitions
 
             // Tags
-            "taggingGovernanceInitiative": "Initiative/Definitions/artifact-initiative-tag-governance.json"
+            "taggingGovernanceInitiative": "Initiative/Definitions/artifact-initiative-tag-governance.json",
+
+            // General
+            "generalGovernanceInitiative": "Initiative/Definitions/artifact-initiative-general-governance.json"
         }
     },
     "resources": [
@@ -154,6 +157,19 @@
                     "contentVersion": "1.0.0.0"
                 }
             }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "name": "generalGovernanceInitiativeDeployment",
+            "location": "[parameters('location')]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('templateBaseUrl'), variables('linkedArtifacts').generalGovernanceInitiative)]",
+                    "contentVersion": "1.0.0.0"
+                }
+            }
         }
     ],
     "outputs": {
@@ -192,6 +208,10 @@
         "taggingGovernanceInitiativeId": {
             "type": "string",
             "value": "[reference('taggingGovernanceInitiativeDeployment').outputs.taggingGovernancePolicySetId.value]"
+        },
+        "generalGovernanceInitiativeId": {
+            "type": "string",
+            "value": "[reference('generalGovernanceInitiativeDeployment').outputs.generalGovernancePolicySetId.value]"
         }
     }
 }
