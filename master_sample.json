@@ -38,9 +38,13 @@
 
             // General
             "generalGovernanceInitiative": "Initiative/Definitions/artifact-initiative-general-governance.json",
+            
+            // Storage
+            "storageGovernanceInitiative": "Initiative/Definitions/artifact-initiative-storage-governance.json",
 
             // Compute
             "computeGovernanceInitiative": "Initiative/Definitions/artifact-initiative-compute-governance.json"
+
         }
     },
     "resources": [
@@ -196,6 +200,19 @@
                     "contentVersion": "1.0.0.0"
                 }
             }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "name": "storageGovernanceInitiativeDeployment",
+            "location": "[parameters('location')]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('templateBaseUrl'), variables('linkedArtifacts').storageGovernanceInitiative)]",
+                    "contentVersion": "1.0.0.0"
+                }
+            }
         }
     ],
     "outputs": {
@@ -242,6 +259,10 @@
         "computeGovernanceInitiativeId": {
             "type": "string",
             "value": "[reference('computeGovernanceInitiativeDeployment').outputs.computeGovernancePolicySetId.value]"
+        },
+        "storageGovernanceInitiativeId": {
+            "type": "string",
+            "value": "[reference('storageGovernanceInitiativeDeployment').outputs.storageGovernancePolicySetId.value]"
         }
     }
 }

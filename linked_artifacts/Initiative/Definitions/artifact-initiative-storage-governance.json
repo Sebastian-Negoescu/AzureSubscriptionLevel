@@ -1,0 +1,55 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "variables": {
+        "initiativeName": "storage-governance-initiative",
+        "initiativeDisplayName": "_*Storage Governance Initiative",
+        "initiativeDescription": "This initiative contains the Storage policy definitions for propper Governance",
+        "basePath": "[concat(subscription().id, '/providers/Microsoft.Authorization/policyDefinitions/')]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Authorization/policySetDefinitions",
+            "apiVersion": "2019-09-01",
+            "name": "[variables('initiativeName')]",
+            "properties": {
+                "displayName": "[variables('initiativeDisplayName')]",
+                "description": "[variables('initiativeDescription')]",
+                "metadata": {
+                    "category": "Storage"
+                },
+                "parameters": {
+                    "listOfAllowedSkus": {
+                        "type": "Array",
+                        "metadata": {
+                            "displayName": "List of Storage Account allowed SKUs",
+                            "description": "List of Storage Account SKUs that are allowed when performing a create/update operation",
+                            "strongType": "storageSkus"
+                        },
+                        "allowedValues": [
+                            "Standard_LRS",
+                            "Standard_GRS"
+                        ]
+                    }
+                },
+                "policyDefinitions": [
+                    {
+                        "policyDefinitionId": "[concat(variables('basePath'), 'restrict-storage-account-skus')]",
+                        "parameters": {
+                            "listOfAllowedSkus": {
+                                "value": "[[parameters('listOfAllowedSkus')]"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "outputs": {
+        "storageGovernancePolicySetId": {
+            "type": "string",
+            "value": "[resourceId('Microsoft.Authorization/policySetDefinitions', variables('initiativeName'))]"
+        }
+    }
+}
