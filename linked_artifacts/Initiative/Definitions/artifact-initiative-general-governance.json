@@ -28,6 +28,14 @@
                             "description": "List of allowed locations for resource deployment",
                             "strongType": "location"
                         }
+                    },
+                    "listOfAllowedLocations": {
+                        "type": "Array",
+                        "metadata": {
+                            "displayName": "List of allowed locations",
+                            "description": "List of allowed locations when deploying resource groups",
+                            "strongType": "location"
+                        }
                     }
                 },
                 "policyDefinitions": [
@@ -40,8 +48,12 @@
                         }
                     },
                     {
-                        "policyDefinitionId": "[concat(variables('basePath'), 'restrict-resource-group-location')]",
-                        "parameters": {}
+                        "policyDefinitionId": "[concat(variables('basePath'), 'restrict-resource-group-locations')]",
+                        "parameters": {
+                            "listOfAllowedLocations": {
+                                "value": "[[parameters('listOfAllowedLocations')]"
+                            }
+                        }
                     }
                 ]
             }
