@@ -37,13 +37,15 @@
                                 "equals": "Microsoft.Storage/storageAccounts"
                             },
                             {
-                                "field": "Microsoft.Storage/storageAccounts/sku.name",
-                                "notIn": "[[parameters('listOfAllowedSkus')]"
+                                "not": {
+                                    "field": "Microsoft.Storage/storageAccounts/sku.name",
+                                    "in": "[[parameters('listOfAllowedSkus')]"
+                                }
                             }
                         ]
                     },
                     "then": {
-                        "effect": "Deny"
+                        "effect": "deny"
                     }
                 }
             }
