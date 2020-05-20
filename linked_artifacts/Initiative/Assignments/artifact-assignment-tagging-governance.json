@@ -21,6 +21,7 @@
             "type": "Microsoft.Authorization/policyAssignments",
             "apiVersion": "2019-09-01",
             "name": "[variables('assignmentName')]",
+            "location": "[parameters('location')]",
             "properties": {
                 "scope": "[subscription().id]",
                 "displayName": "[variables('assignmentDisplayName')]",
@@ -30,11 +31,7 @@
                 },
                 "enforcementMode": "Default",
                 "policyDefinitionId": "[variables('initiativeId')]",
-                "parameters": {
-                    "location": {
-                        "value": "[parameters('location')]"
-                    }
-                }
+                "parameters": {}
             },
             "identity": {
                 "type": "SystemAssigned"
