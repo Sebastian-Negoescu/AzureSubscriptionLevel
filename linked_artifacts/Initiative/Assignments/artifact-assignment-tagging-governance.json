@@ -1,7 +1,14 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {},
+    "parameters": {
+        "location": {
+            "type": "string",
+            "metadata": {
+                "description": "Location needed for validation of the System Assigned identity. The location value will be taken from the Master template."
+            }
+        }
+    },
     "variables": {
         "initiativeName": "tagging-governance-initiative",
         "initiativeId": "[resourceId('Microsoft.Authorization/policySetDefinitions', variables('initiativeName'))]",
@@ -23,7 +30,14 @@
                 },
                 "enforcementMode": "Default",
                 "policyDefinitionId": "[variables('initiativeId')]",
-                "parameters": {}
+                "parameters": {
+                    "location": {
+                        "value": "[parameters('location')]"
+                    }
+                }
+            },
+            "identity": {
+                "type": "SystemAssigned"
             }
         }
     ],

@@ -6,7 +6,7 @@
             "type": "string",
             "metadata": {
                 "name": "Deployment Location",
-                "description": "Azure Location for storing deployment metadata"
+                "description": "Azure Location for storing deployment metadata && to satisfy System Assigned identity requirements."
             }
         }
     },
@@ -293,6 +293,11 @@
                 "templateLink": {
                     "uri": "[concat(variables('templateBaseUrl'), variables('linkedArtifacts').taggingGovernanceInitiativeAssignment)]",
                     "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "location": {
+                        "value": "[parameters('location')]"
+                    }
                 }
             }
         }
