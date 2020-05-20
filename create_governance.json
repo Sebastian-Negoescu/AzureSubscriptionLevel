@@ -51,7 +51,7 @@
             "generalGovernanceInitiativeAssignment": "Initiative/Assignments/artifact-assignment-general-governance.json",
 
             // Compute
-            "computeGovernanceInitiativeAssignment": "Initiative/Assignments/artifact-assingment-compute-governance.json"
+            "computeGovernanceInitiativeAssignment": "Initiative/Assignments/artifact-assignment-compute-governance.json"
 
         }
     },
