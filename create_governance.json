@@ -48,7 +48,10 @@
             // Initiative Assignments
 
             // General
-            "generalGovernanceInitiativeAssignment": "Initiative/Assignments/artifact-assignment-general-governance.json"
+            "generalGovernanceInitiativeAssignment": "Initiative/Assignments/artifact-assignment-general-governance.json",
+
+            // Compute
+            "computeGovernanceInitiativeAssignment": "Initiative/Assignments/artifact-assingment-compute-governance.json"
 
         }
     },
@@ -241,6 +244,22 @@
             "dependsOn": [
                 "[resourceId('Microsoft.Resources/deployments', 'generalGovernanceInitiativeDeployment')]"
             ]
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "name": "computeGovernanceInitiativeAssignmentDeployment",
+            "location": "[parameters('location')]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('templateBaseUrl'), variables('linkedArtifacts').computeGovernanceInitiativeAssignment)]",
+                    "contentVersion": "1.0.0.0"
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Resources/deployments', 'computeGovernanceInitiativeDeployment')]"
+            ]
         }
     ],
     "outputs": {
@@ -295,6 +314,10 @@
         "generalGovernanceInitiativeAssignmentId": {
             "type": "string",
             "value": "[reference('generalGovernanceInitiativeAssignmentDeployment').outputs.generalGovernanceInitiativeAssignmentTemplateId.value]"
+        },
+        "computeGovernanceInitiativeAssignmentId": {
+            "type": "string",
+            "value": "[reference('computeGovernanceInitiativeAssignmentDeployment').outputs.computeGovernanceInitiativeAssignmentTemplateId.value]"
         }
     }
 }
