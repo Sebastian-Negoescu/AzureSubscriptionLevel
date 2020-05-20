@@ -35,7 +35,7 @@
                                         "like": "dev*"
                                     },
                                     {
-                                        "type": "name",
+                                        "field": "name",
                                         "like": "prod*"
                                     }
                                 ]
