@@ -32,11 +32,11 @@
                                 "anyOf": [
                                     {
                                         "field": "name",
-                                        "like": "dev*"
+                                        "notLike": "dev*"
                                     },
                                     {
                                         "field": "name",
-                                        "like": "prod*"
+                                        "notLike": "prod*"
                                     }
                                 ]
                             }
