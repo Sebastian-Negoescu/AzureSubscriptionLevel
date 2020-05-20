@@ -18,6 +18,7 @@
             // General
             "restrictAllowedLocationsPolicy": "Policy/Definitions/artifact-policy-only-europe-location--allow.json",
             "restrictResourceGroupLocationsPolicy": "Policy/Definitions/artifact-policy-resource-group-location--allow.json",
+            "auditResourceGroupNamingConventionPolicy": "Policy/Definitions/artifact-policy-check-rg-naming-convention--audit.json",
 
             // Storage
             "restrictStorageAccountSkusPolicy": "Policy/Definitions/artifact-policy-storageaccount-sku--allowed.json",
@@ -85,6 +86,19 @@
                 "mode": "Incremental",
                 "templateLink": {
                     "uri": "[concat(variables('templateBaseUrl'), variables('linkedArtifacts').restrictResourceGroupLocationsPolicy)]",
+                    "contentVersion": "1.0.0.0"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "name": "auditResourceGroupNamingConventionPolicyDeployment",
+            "location": "[parameters('location')]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('templateBaseUrl'), variables('linkedArtifacts').auditResourceGroupNamingConventionPolicy)]",
                     "contentVersion": "1.0.0.0"
                 }
             }
@@ -200,7 +214,8 @@
             },
             "dependsOn": [
                 "[resourceId('Microsoft.Resources/deployments', 'restrictAllowedLocationsPolicyDeployment')]",
-                "[resourceId('Microsoft.Resources/deployments', 'restrictResourceGroupLocationsPolicyDeployment')]"
+                "[resourceId('Microsoft.Resources/deployments', 'restrictResourceGroupLocationsPolicyDeployment')]",
+                "[resourceId('Microsoft.Resources/deployments', 'auditResourceGroupNamingConventionPolicyDeployment')]"
             ]
         },
         {
@@ -310,6 +325,10 @@
         "restrictResourceGroupLocationsPolicyId": {
             "type": "string",
             "value": "[reference('restrictResourceGroupLocationsPolicyDeployment').outputs.restrictResourceGroupLocationId.value]"
+        },
+        "auditResourceGroupNamingConventionPolicyId": {
+            "type": "string",
+            "value": "[reference('auditResourceGroupNamingConventionPolicyDeployment').outputs.auditRgNamingConventionId.value]"
         },
         "restrictStorageAccountSkusPolicyId": {
             "type": "string",

@@ -5,7 +5,7 @@
     "variables": {
         "initiativeName": "general-governance-initiative",
         "initiativeDisplayName": "_*General Governance Initiative",
-        "initiativeDescription": "This initiative contains the general policy definitions for propper Governance - allowed locations for RGs and Resources",
+        "initiativeDescription": "This initiative contains the general policy definitions for propper Governance - allowed locations for RGs and Resources, naming conventions, etc.",
         "basePath": "[concat(subscription().id, '/providers/Microsoft.Authorization/policyDefinitions/')]"
     },
     "resources": [
@@ -82,6 +82,10 @@
                                 "value": "[[parameters('rgAllowedLocations')]"
                             }
                         }
+                    },
+                    {
+                        "policyDefinitionId": "[concat(variables('basePath'), 'audit-resource-group-naming-convention')]",
+                        "parameters": {}
                     }
                 ]
             }

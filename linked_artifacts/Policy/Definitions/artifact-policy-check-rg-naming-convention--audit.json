@@ -1,0 +1,58 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "variables": {
+        "policyName": "audit-resource-group-naming-convention",
+        "policyDisplayName": "_*Audit Resource Group naming convention - Dev/Prod",
+        "policyDescription": "This policy checks if the Resource Groups are following the naming convention, using the dev/prod prefix for environment accuracy and readability."
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Authorization/policyDefinitions",
+            "apiVersion": "2019-09-01",
+            "name": "[variables('policyName')]",
+            "properties": {
+                "displayName": "[variables('policyDisplayName')]",
+                "description": "[variables('policyDescription')]",
+                "metadata": {
+                    "category": "General"
+                },
+                "mode": "All",
+                "policyType": "Custom",
+                "parameters": {},
+                "policyRule": {
+                    "if": {
+                        "allOf": [
+                            {
+                                "field": "type",
+                                "equals": "Microsoft.Resources/subscriptions/resourceGroups"
+                            },
+                            {
+                                "anyOf": [
+                                    {
+                                        "field": "name",
+                                        "like": "dev*"
+                                    },
+                                    {
+                                        "type": "name",
+                                        "like": "prod*"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "then": {
+                        "effect": "audit"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {
+        "auditRgNamingConventionId": {
+            "type": "string",
+            "value": "[resourceId('Microsoft.Authorization/policyDefinitions', variables('policyName'))]"
+        }
+    }
+}
