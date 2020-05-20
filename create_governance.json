@@ -369,7 +369,7 @@
         },
         "taggingGovernanceInitiativeAssignmentSystemAssignedIdentityIdRef": {
             "type": "string",
-            "value": "[reference('taggingGovernanceInitiativeAssignmentDeployment').outputs.taggingGovernanceInitiativeAssignmentSystemAssignedIdentity.value]"
+            "value": "[reference('taggingGovernanceInitiativeAssignmentDeployment').outputs.taggingGovernanceInitiativeAssignmentSystemAssignedIdentityId.value]"
         }
     }
 }
