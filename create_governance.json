@@ -54,7 +54,10 @@
             "computeGovernanceInitiativeAssignment": "Initiative/Assignments/artifact-assignment-compute-governance.json",
 
             // Storage
-            "storageGovernanceInitiativeAssignment": "Initiative/Assignments/artifact-assignment-storage-governance.json"
+            "storageGovernanceInitiativeAssignment": "Initiative/Assignments/artifact-assignment-storage-governance.json",
+
+            // Tags
+            "taggingGovernanceInitiativeAssignment": "Initiative/Assignments/artifact-assignment-tagging-governance.json"
 
         }
     },
@@ -279,6 +282,19 @@
             "dependsOn": [
                 "[resourceId('Microsoft.Resources/deployments', 'storageGovernanceInitiativeDeployment')]"
             ]
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "name": "taggingGovernanceInitiativeAssignmentDeployment",
+            "location": "[parameters('location')]",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(variables('templateBaseUrl'), variables('linkedArtifacts').taggingGovernanceInitiativeAssignment)]",
+                    "contentVersion": "1.0.0.0"
+                }
+            }
         }
     ],
     "outputs": {
@@ -341,6 +357,10 @@
         "storageGovernanceInitiativeAssignmentId": {
             "type": "string",
             "value": "[reference('storageGovernanceInitiativeAssignmentDeployment').outputs.storageGovernanceInitiativeAssignmentTemplateId.value]"
+        },
+        "taggingGovernanceInitiativeAssignmentId": {
+            "type": "string",
+            "value": "[reference('taggingGovernanceInitiativeAssignmentDeployment').outputs.taggingGovernanceInitiativeAssignmentTemplateId.value]"
         }
     }
 }
