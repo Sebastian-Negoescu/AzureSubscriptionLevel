@@ -25,10 +25,7 @@
                 "policyDefinitionId": "[variables('initiativeId')]",
                 "parameters": {
                     "listOfAllowedSkus": {
-                        "value": [
-                            "Standard_LRS",
-                            "Standard_GRS"
-                        ]
+                        "value": ["Standard_LRS"]
                     }
                 }
             }
