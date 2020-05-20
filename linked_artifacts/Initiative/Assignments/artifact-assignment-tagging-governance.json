@@ -45,7 +45,7 @@
         },
         "taggingGovernanceInitiativeAssignmentSystemAssignedIdentityId": {
             "type": "string",
-            "value": "[reference('Microsoft.Authorization/policyAssignments',variables('assignmentName')).identity.principalId]"
+            "value": "[reference(concat('Microsoft.Authorization/policyAssignments',variables('assignmentName'))).identity.principalId]"
         }
     }
 }
