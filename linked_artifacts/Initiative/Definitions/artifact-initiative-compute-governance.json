@@ -27,7 +27,7 @@
                             "description": "List of forbidden SKUs when creating/updating a VM",
                             "strongType": "vmSKUs"
                         },
-                        "allowedValues": ["[contains('Standard_G','*')]"]
+                        "allowedValues": ["Standard_G*"]
                     }
                 },
                 "policyDefinitions": [
