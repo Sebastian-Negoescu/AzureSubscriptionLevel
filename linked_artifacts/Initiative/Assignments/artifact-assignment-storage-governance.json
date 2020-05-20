@@ -1,0 +1,43 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "variables": {
+        "initiativeName": "storage-governance-initiative",
+        "initiativeId": "[resourceId('Microsoft.Authorization/policySetDefinitions', variables('initiativeName'))]",
+        "assignmentName": "[concat(variables('initiativeName'), '-assignment')]",
+        "assignmentDisplayName": "_*Storage Governance Initiative-Assignment",
+        "assignmentDescription": "[concat('Assigning ', variables('assignmentName'), ' to subscription.')]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Authorization/policyAssignments",
+            "apiVersion": "2019-09-01",
+            "name": "[variables('assignmentName')]",
+            "properties": {
+                "scope": "[subscription().id]",
+                "displayName": "[variables('assignmentDisplayName')]",
+                "description": "[variables('assignmentDescription')]",
+                "metadata": {
+                    "category": "Storage"
+                },
+                "enforcementMode": "Default",
+                "policyDefinitionId": "[variables('initiativeId')]",
+                "parameters": {
+                    "listOfAllowedSkus": {
+                        "value": [
+                            "Standard_LRS",
+                            "Standard_GRS"
+                        ]
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {
+        "storageGovernanceInitiativeAssignmentTemplateId": {
+            "type": "string",
+            "value": "[resourceId('Microsoft.Authorization/policyAssignments', variables('assignmentName'))]"
+        }
+    }
+}
