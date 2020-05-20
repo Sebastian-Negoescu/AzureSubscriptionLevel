@@ -366,6 +366,10 @@
         "taggingGovernanceInitiativeAssignmentId": {
             "type": "string",
             "value": "[reference('taggingGovernanceInitiativeAssignmentDeployment').outputs.taggingGovernanceInitiativeAssignmentTemplateId.value]"
+        },
+        "taggingGovernanceInitiativeAssignmentSystemAssignedIdentityIdRef": {
+            "type": "string",
+            "value": "[reference('taggingGovernanceInitiativeAssignmentDeployment').outputs.taggingGovernanceInitiativeAssignmentSystemAssignedIdentity.value]"
         }
     }
 }

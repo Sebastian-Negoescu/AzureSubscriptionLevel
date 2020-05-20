@@ -45,6 +45,10 @@
         "taggingGovernanceInitiativeAssignmentTemplateId": {
             "type": "string",
             "value": "[resourceId('Microsoft.Authorization/policyAssignments',variables('assignmentName'))]"
+        },
+        "taggingGovernanceInitiativeAssignmentSystemAssignedIdentityId": {
+            "type": "string",
+            "value": "[reference(resourceId('Microsoft.Authorization/policyAssignments',variables('assignmentName'))).Identity.principalId]"
         }
     }
 }
